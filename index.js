@@ -65,9 +65,7 @@ const addToCart = (productId, quantity) => {
         } else {
             // Si no está en el carrito, agregarlo.
             cart.push({
-                id: product.id,
-                name: product.name,
-                price: product.price,
+                ...product,
                 quantity: quantity,
                 totalPrice: product.price * quantity
             });
@@ -100,13 +98,16 @@ const promptUserForProduct = () => {
         const productId = parseInt(prompt("Ingrese el ID del producto que desea agregar al carrito (presione 0 para finalizar):"));
         if (productId === 0) {
             continueShopping = false;
-        } else {
+        } else if (productId >= 1 && productId <= 4) {
             const quantity = parseInt(prompt("Ingrese la cantidad que desea agregar:"));
             addToCart(productId, quantity);
+        } else {
+            alert('ID de producto no válido. Por favor, ingrese un ID entre 1 y 4.');
         }
     }
     showCart(); // Mostrar el contenido final del carrito.
 };
+
 
 // Llamo a la funcion para que el usuario ingrese el producto.
 promptUserForProduct();
